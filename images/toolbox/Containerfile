@@ -1,0 +1,13 @@
+FROM quay.io/fedora/fedora-toolbox:40
+
+RUN dnf install -y git vim go
+
+# install kusrtomize
+RUN curl -L -o kustomize.tar.gz  https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.4.3/kustomize_v5.4.3_linux_amd64.tar.gz && \
+tar -zxvpf kustomize.tar.gz && \
+mv kustomize /usr/local/bin && \
+rm -f kustomize.tar.gz 
+
+# install kubebuilder
+RUN curl -L -o kubebuilder "https://go.kubebuilder.io/dl/latest/$(go env GOOS)/$(go env GOARCH)" && \
+chmod +x kubebuilder && mv kubebuilder /usr/local/bin/
